@@ -188,10 +188,10 @@ export const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
 - shortcut zoom, có lẽ sử dụng modal để hiển thị hình ảnh to hơn. x
 
 - custom modal btn có thể tuỳ chỉnh 1 hoặc 2 nút và thay đổi dữ liệu trong modal. x
-- check input empty
+- check input empty. x
 - chia ra component render button theo role. x
 - khi là màn hình checker mặc đinh chỉ readOnly, khi cần sửa thì nhấn nút edit
-- sử lý sự kiện cuối cùng
+
 
 
 * priority
@@ -200,4 +200,5 @@ export const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
 - sử dụng shortcut cho checker. x
 - tạo components button ở file riêng , cần trả về handleButtonEntry current index chính xác
 - handle logic xử lý data checker choose. x
+- disable btn
  */

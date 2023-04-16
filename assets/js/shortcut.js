@@ -241,7 +241,7 @@ const handleClickItem = (e, item, index, shortcutLocalStorage, role) => {
 };
 
 export const renderShortcut = (shortcutLocalStorage, role) => {
-  console.log(shortcutLocalStorage);
+  
   shortcutLocalStorage.forEach((shortcut) =>
     shortcutItem(shortcut.name, shortcut.key.name)
   );

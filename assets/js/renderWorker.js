@@ -1,4 +1,4 @@
-import { main__contain__right_dom } from "./variablesDom.JS";
+import { main__contain__right_dom } from "./variablesDom.js";
 
 export const renderUIChecker = () => {
     // passing parameter to custom
