@@ -1,0 +1,403 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+:root {
+  --primary-color: #1badde;
+  --warning-color: #f0506e;
+  --white-color: #ffffff;
+  --black-color: #000;
+  --disable-color: #55555533;
+  --text-color: #555555;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+
+}
+
+input {
+  outline: none;
+  border: 0;
+
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.pointer {
+  cursor: pointer;
+}
+/*  */
+
+.root {
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+
+  flex-direction: column;
+}
+
+/* header and footer*/
+.header,
+.footer {
+  background: var(--primary-color);
+  padding: 1rem 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__item,
+.footer__item {
+  color: var(--white-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* main */
+
+.main {
+}
+
+.main__contain {
+  height: 84vh;
+  padding: 2rem;
+
+  display: flex;
+  gap: 1rem;
+}
+
+/* main left */
+.main__contain__left {
+  flex: 0 1 70%;
+}
+
+.main__contain__left__img {
+  width: 100%;
+  height: 500px;
+}
+
+/* main right */
+.main__contain__right {
+  flex: 0 1 30%;
+}
+
+.main__contain__right__item {
+  position: relative;
+}
+
+.main__contain__right__title {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.main__contain__right__input {
+  margin-top: 1rem;
+  background: rgba(181, 181, 181, 0.12);
+  padding: 4rem 0;
+}
+
+.main__contain__right__input > input {
+  font-size: 1.6rem;
+  color: var(--text-color);
+  font-weight: 600;
+  text-align: center;
+}
+
+.main__contain__right__btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.main__contain__right__btns__group {
+  width: 60%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.main__contain__right__btns__group.column-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+
+}
+
+.main__contain__right__btns__btn {
+  background: var(--primary-color);
+  max-width: 100px;
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: 10px;
+  color: var(--white-color);
+
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.main__contain__right__btns__btn.warning {
+  background: var(--warning-color);
+}
+
+.main__contain__right__btns__btn.disable {
+  background: var(--disable-color);
+  color: var(--text-color);
+}
+
+/* modal start */
+
+.modal__container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: #555555b3;
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.modal__container.show {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal {
+  padding: 2rem;
+  margin: auto;
+  width: 40%;
+  max-width: 40rem;
+  background-color: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 50vh;
+}
+
+/* modal header */
+
+.modal__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.modal__header__title {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.modal__header__close {
+  cursor: pointer;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+  padding: 0 0.5rem;
+}
+
+.modal__header__close:hover {
+  opacity: 0.4;
+}
+
+/* modal shortcut begin */
+.modal__shortcut {
+  margin-top: 1rem;
+  overflow-y: auto;
+  max-height: 220px;
+}
+
+.modal__shortcut__item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modal__shortcut__item ~ .modal__shortcut__item {
+  margin-top: 2rem;
+}
+
+.modal__shortcut__item__name {
+  color: var(--text-color);
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.modal__shortcut__item__key {
+  border: 1px solid var(--text-color);
+  display: flex;
+  background: #f2f2f2;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+.modal__shortcut__item__key.active {
+  border: 2px solid var(--black-color);
+}
+
+.modal__shortcut__item__key.error {
+  border: 2px solid var(--warning-color);
+}
+
+.modal__shortcut__item__key > input {
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.modal__shortcut__item__key__del {
+  color: var(--text-color);
+  cursor: pointer;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal__shortcut__item__key.active .modal__shortcut__item__key__del {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal__shortcut__item__error {
+  position: absolute;
+  top: 110%;
+  right: 10%;
+  color: var(--warning-color);
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal__shortcut__item__key.error .modal__shortcut__item__error {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* modal shortcut end */
+
+/* modal custom */
+.modal__custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.modal__custom.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal__custom__over__lay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.modal__custom__container {
+  position: relative;
+  width: max-content;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.modal__custom__container__global {
+  padding: 2rem;
+}
+.modal__custom__container__icon {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.modal__custom__container__icon.warning {
+  color: var(--warning-color);
+
+}
+
+.modal__custom__container__desc {
+  color: var(--text-color);
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.modal__custom__container__btns {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__custom__container__btns_btn {
+  background: var(--primary-color);
+  min-width: 100px;
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: 10px;
+  color: var(--white-color);
+
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.modal__custom__container__btns_btn:hover {
+  opacity: 0.6;
+}
+
+.modal__custom__container__btns_btn.warning {
+  background: #f0506e;
+}
+
+.modal__custom__container__img {
+  height: 86vh;
+  width: 90vw;
+}
+
+.modal__custom__container__img > img {
+  object-fit: fill;
+}
+/*
+
+  */

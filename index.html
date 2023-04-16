@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UI/UX worker for worker.</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" type="text/css" href="./index.css" />
+  </head>
+
+  <body>
+    <div class="root">
+      <!-- header -->
+      <div class="header">
+        <!-- <div class="header__item">Username : ABC</div>
+        <div class="header__item">Level : Entry</div>
+        <div class="header__item">Remaining Pictures : 10/3000</div>
+        <div class="header__item">Remaining Times : 25m:59s</div>
+        <div class="header__item pointer">
+          <img src="./assets/images/SettingOutlined.png" alt="setting icon" />
+        </div> -->
+      </div>
+
+      <!-- main -->
+      <div class="main__contain">
+        <!-- main left -->
+        <div class="main__contain__left">
+          <div class="main__contain__left__img">
+            <img src="./assets/images/picture.png" alt="image" />
+          </div>
+        </div>
+
+        <!-- main right -->
+        <div class="main__contain__right">
+
+      
+        </div>
+      </div>
+
+      <!-- footer -->
+
+      <div class="footer">
+        <div class="footer__item">Total: 0 Characters</div>
+        <div class="footer__item">Miss: 0 Characters</div>
+        <div class="footer__item">Miss Ratio: 0 %</div>
+        <div class="footer__item">Speed: 0 Characters/minute</div>
+      </div>
+    </div>
+
+    <div class="modal__container">
+      <div class="modal">
+        <div class="modal__header">
+          <div class="modal__header__title">Shortcut</div>
+          <div class="modal__header__close">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+        </div>
+        <div class="modal__shortcut">
+          <!-- modal__shortcut__item -->
+        </div>
+      </div>
+    </div>
+
+    <div class="modal__custom">
+      <div class="modal__custom__over__lay"></div>
+      <div class="modal__custom__container"></div>
+    </div>
+
+    <script type="module" src="./assets/js/index.js"></script>
+  </body>
+</html>
