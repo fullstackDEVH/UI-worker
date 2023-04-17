@@ -1,5 +1,6 @@
 import { dataAPI } from "../constant/dataApi.js";
 import { addClassList, removeClassList } from "./helper/classList.js";
+import { decrement, increment } from "./index.js";
 import {
   img_input_dom,
   modal__custom__container_dom,
@@ -9,7 +10,7 @@ import {
 
 export const renderModalAnswer = () => {
   // passing parameters and handle logic to custom modal
-
+  increment()
   addClassList(modal__custom_dom, "show");
 
   modal__custom__container_dom.innerHTML = `
@@ -30,6 +31,7 @@ export const renderModalAnswer = () => {
 };
 
 export const renderModalZoomImg = (currentIndex) => {
+  decrement();
   handleClickModalOverlay();
   addClassList(modal__custom_dom, "show");
 

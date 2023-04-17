@@ -125,6 +125,10 @@ input {
   border: 1px solid #1badde;
 }
 
+.main__contain__right__input > input.warning {
+  border: 1px solid #f0506e;
+}
+
 .main__contain__right__btns {
   display: flex;
   align-items: center;

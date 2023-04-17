@@ -4,11 +4,12 @@ import { main__contain__right_dom } from "./variablesDom.js";
 export const renderUIChecker = (currentIndex) => {
   let inputs = "";
   let inputs2= "";
-  for (var i = 0; i <= dataAPI3[currentIndex].numberInput - 1; i++) {
+  console.log(dataAPI3[currentIndex]);
+  for (let i = 0; i <= dataAPI3[currentIndex].numberInput - 1; i++) {
     inputs += '<input type="text" name="input_1_' + i + '" />';
   };
 
-  for (var i = 0; i <= dataAPI4[currentIndex].numberInput - 1; i++) {
+  for (let i = 0; i <= dataAPI4[currentIndex].numberInput - 1; i++) {
     inputs2 += '<input type="text" name="input_2_' + i + '" />';
   };
 
@@ -74,10 +75,9 @@ export const renderUIChecker = (currentIndex) => {
 };
 
 export const renderUIEntry = (currentIndex) => {
-  // lấy formatNumber dựa vào dataAPI và currentIndex
-
   let inputs = "";
-  for (var i = 0; i <= dataAPI3[currentIndex].numberInput - 1; i++) {
+  console.log(dataAPI3[currentIndex]);
+  for (let i = 0; i <= dataAPI3[currentIndex].numberInput - 1; i++) {
     inputs += '<input type="text" name="input_' + i + '" />';
   };
 

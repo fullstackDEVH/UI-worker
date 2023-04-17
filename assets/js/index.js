@@ -1,7 +1,7 @@
 import { dataAPI, dataAPI2, dataAPI3, dataAPI4 } from "../constant/dataApi.js";
 import { ROLES } from "../constant/type.js";
 import { switchCaseShortCut } from "./helper/checkKeyCode.js";
-import { addClassList, toggleClassList } from "./helper/classList.js";
+import { toggleClassList } from "./helper/classList.js";
 import { countdown } from "./helper/countDown.js";
 import {
   getCustomSettingLocalStorage,
@@ -23,7 +23,19 @@ import {
   main__contain__right_dom,
 } from "./variablesDom.js";
 
+let abc = 1;
 let currentIndex = 0;
+
+export const increment = () => {
+  // currentIndex++;
+  console.log(abc);
+};
+
+export const decrement = () => {
+  // currentIndex--;
+  console.log(abc);
+};
+
 window.addEventListener("DOMContentLoaded", (event) => {
   const urlParams = new URLSearchParams(window.location.search);
   const page = urlParams.get("role");
@@ -127,13 +139,21 @@ const handleButtonEntry = (currentIndex1, role, dataAPI) => {
         dataAPI
       );
     }
+
+    if (e.target.closest("#btn_exit")) {
+      renderModalAnswer();
+    }
+
+    if (e.target.closest("#btn_submit")) {
+      console.log("submit");
+    }
   };
 };
 
 const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
   if (role !== ROLES.CHECKER) return;
 
-  main__contain__right_dom.onclick = () => {
+  main__contain__right_dom.onclick = (e) => {
     if (e.target.closest("#btn_ck_entry1")) {
       currentIndex = checkConditionRenderImgAndValue(
         "NEXT",

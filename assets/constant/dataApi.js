@@ -83,21 +83,24 @@ export const dataAPI2 = [
     id: "6",
   },
 ];
-
 export const dataAPI3 = [
   {
     urlImg: "http://127.0.0.1:5500/assets/images/picture.png",
     id: "0",
-    values: ["x", "", "3"],
+    values: ["x", "", ""],
     numberInput: 3,
-    value: "dataAPI3 1 ",
+  },
+  {
+    urlImg: "https://kenh14cdn.com/thumb_w/660/2020/7/17/brvn-15950048783381206275371.jpg",
+    id: "0",
+    values: ["x"],
+    numberInput: 1,
   },
   {
     urlImg: "https://znews-photo.zingcdn.me/w660/Uploaded/mdf_eioxrd/2021_07_06/2.jpg",
     id: "0",
     values: ["d", "e"],
     numberInput: 2,
-    value: "dataAPI3 2",
   },
 ];
 
@@ -106,16 +109,20 @@ export const dataAPI4 = [
   {
     urlImg: "http://127.0.0.1:5500/assets/images/picture.png",
     id: "0",
-    values: ["a", "b", "d"],
+    values: ["a", "b", ""],
     numberInput: 3,
-    value: "dataAPI4 1",
+  },
+  {
+    urlImg: "https://kenh14cdn.com/thumb_w/660/2020/7/17/brvn-15950048783381206275371.jpg",
+    id: "0",
+    values: ["x"],
+    numberInput: 1,
   },
   {
     urlImg: "https://znews-photo.zingcdn.me/w660/Uploaded/mdf_eioxrd/2021_07_06/2.jpg",
     id: "0",
     values: ["a", "c"],
     numberInput: 2,
-    value: "dataAPI4 2",
   },
 ];
 

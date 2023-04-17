@@ -5,6 +5,7 @@ import {
   dataEntry,
 } from "../constant/dataApi.js";
 import { ROLES } from "../constant/type.js";
+import { addClassList, removeAllClassList } from "./helper/classList.js";
 import { renderUIChecker, renderUIEntry } from "./renderWorker.js";
 import {
   header_dom,
@@ -22,15 +23,14 @@ export const renderImgAndValue = (
     ? renderUIEntry(currentIndex)
     : renderUIChecker(currentIndex);
 
-  let inputEnter = main__contain__right_dom.querySelectorAll(
+  let inputEntry = main__contain__right_dom.querySelectorAll(
     ".main__contain__right__input.entry_1 > input"
   );
 
-  let inputEnter2 = main__contain__right_dom.querySelectorAll(
+  let inputEntry2 = main__contain__right_dom.querySelectorAll(
     ".main__contain__right__input.entry_2 > input"
   );
 
-  console.log(inputEnter);
   let formatNumber =
     dataAPI1[currentIndex].numberInput ?? dataAPI2[currentIndex].numberInput;
 
@@ -49,28 +49,26 @@ export const renderImgAndValue = (
   if (role === "ENTRY") {
     for (var i = 0; i <= formatNumber - 1; i++) {
       if (!dataAPI1[currentIndex]?.values[i]) {
-        inputEnter[i].value = "";
+        inputEntry[i].value = "";
         continue;
       }
-      inputEnter[i].value = dataAPI1[currentIndex]?.values[i];
+      inputEntry[i].value = dataAPI1[currentIndex]?.values[i];
     }
   } else if (ROLES[role] === "CHECKER") {
     for (var i = 0; i <= formatNumber - 1; i++) {
-      inputEnter[i].value = dataAPI1[currentIndex]?.values[i]
+      inputEntry[i].value = dataAPI1[currentIndex]?.values[i]
         ? dataAPI1[currentIndex]?.values[i]
         : "";
-      inputEnter2[i].value = dataAPI2[currentIndex]?.values[i]
+      inputEntry2[i].value = dataAPI2[currentIndex]?.values[i]
         ? dataAPI2[currentIndex]?.values[i]
         : "";
     }
-  }
-
-  console.log("render IMG AND VALUE  : ", dataAPI1);
+  };
 };
 
 export const checkConditionRenderImgAndValue = (
   btnName,
-  index,
+  currentIndex,
   number,
   role = "ENTRY",
   dataAPI1 = [],
@@ -81,60 +79,90 @@ export const checkConditionRenderImgAndValue = (
   //   return;
   // }
 
-  let inputEnter = main__contain__right_dom.querySelectorAll(
-    ".main__contain__right__input > input"
+  let inputEntry1 = main__contain__right_dom.querySelectorAll(
+    ".main__contain__right__input.entry_1 > input"
+  );
+
+  let inputEntry2 = main__contain__right_dom.querySelectorAll(
+    ".main__contain__right__input.entry_2 > input"
   );
 
   if (role === ROLES.CHECKER) {
-    // if (!inputEnter[0].value || !inputEnter[1].value) return;
+    // if (!inputEntry[0].value || !inputEntry[1].value) return;
+    let error = false;
+    removeAllClassList(inputEntry1, "warning");
+    removeAllClassList(inputEntry2, "warning");
+
+    for (let i = 0; i <= inputEntry1.length - 1; i++) {
+      if (!inputEntry1[i].value) {
+        addClassList(inputEntry1[i], "warning")
+        error= true;
+      };
+      
+      if (!inputEntry2[i].value) {
+        addClassList(inputEntry2[i], "warning")
+        error= true;
+      };
+    };
+
+    if(error) return currentIndex;
 
     switch (btnName) {
       case "ENTRY1":
-        dataChecker[index] = {
-          ...dataAPI1[index],
-          value: inputEnter[0].value,
+        dataChecker[currentIndex] = {
+          ...dataAPI1[currentIndex],
+          value: inputEntry1[0].value,
         };
         break;
       case "ENTRY2":
-        dataChecker[index] = {
-          ...dataAPI2[index],
-          value: inputEnter[1].value,
+        dataChecker[currentIndex] = {
+          ...dataAPI2[currentIndex],
+          value: inputEntry1[1].value,
         };
         break;
       case "BOTH":
-        dataChecker[index] = {
-          ...dataAPI1[index],
-          value: inputEnter[0].value,
+        dataChecker[currentIndex] = {
+          ...dataAPI1[currentIndex],
+          value: inputEntry1[0].value,
         } ?? {
-          ...dataAPI2[index],
-          value: inputEnter[1].value,
+          ...dataAPI2[currentIndex],
+          value: inputEntry1[1].value,
         };
         break;
       default:
         break;
     }
   } else if (role === ROLES.ENTRY) {
-    // phải lấy formatNumber enter dựa vào index
-    if (!inputEnter[0].value) return;
+    let error = false;
+    removeAllClassList(inputEntry1, "warning")
+    for (let i = 0; i <= inputEntry1.length - 1; i++) {
+      if (!inputEntry1[i].value) {
+        addClassList(inputEntry1[i], "warning")
+        error= true;
+      };
 
-    dataEntry[index] = {
-      ...dataAPI1[index],
-      value: inputEnter[0].value,
+    };
+
+    if(error) return currentIndex;
+  
+    dataEntry[currentIndex] = {
+      ...dataAPI1[currentIndex],
+      value: inputEntry1[0].value,
     };
   }
 
   if (
     ["NEXT", "ENTRY1", "ENTRY2", "BOTH"].includes(btnName) &&
-    index >= dataAPI1.length - 1
+    currentIndex >= dataAPI1.length - 1
   )
-    return index;
+    return currentIndex;
 
-  if (btnName === "PREVIOUS" && index < 1) return index;
+  if (btnName === "PREVIOUS" && currentIndex < 1) return currentIndex;
 
-  index += number;
+  currentIndex += number;
 
-  renderImgAndValue(index, role, dataAPI1, dataAPI2);
-  return index;
+  renderImgAndValue(currentIndex, role, dataAPI1, dataAPI2);
+  return currentIndex;
 };
 
 // gọi lại hàm handle btn
