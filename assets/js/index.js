@@ -1,4 +1,4 @@
-import { dataAPI, dataAPI2 } from "../constant/dataApi.js";
+import { dataAPI, dataAPI2, dataAPI3, dataAPI4 } from "../constant/dataApi.js";
 import { ROLES } from "../constant/type.js";
 import { switchCaseShortCut } from "./helper/checkKeyCode.js";
 import { addClassList, toggleClassList } from "./helper/classList.js";
@@ -7,16 +7,15 @@ import {
   getCustomSettingLocalStorage,
   checkLocalStorageIsAvailable,
 } from "./helper/localStorage.js";
-// import { handleButtonChecker, handleButtonEntry } from "./renderButtonWorker.js";
 
-import { renderHeader } from "./renderHeader.js";
-import { renderModalAnswer } from "./renderModal.js";
 import {
   checkConditionRenderImgAndValue,
   renderImgAndValue,
 } from "./renderValueAndImg.js";
-import { renderUIChecker, renderUIEntry } from "./renderWorker.js";
+import { renderHeader } from "./renderHeader.js";
+import { renderModalAnswer } from "./renderModal.js";
 import { renderShortcut } from "./shortcut.js";
+import { renderUIChecker, renderUIEntry } from "./renderWorker.js";
 import {
   header_dom,
   modal_container_dom,
@@ -24,11 +23,10 @@ import {
   main__contain__right_dom,
 } from "./variablesDom.js";
 
-
 let currentIndex = 0;
 window.addEventListener("DOMContentLoaded", (event) => {
   const urlParams = new URLSearchParams(window.location.search);
-  const page = urlParams.get('role'); 
+  const page = urlParams.get("role");
   let role = page ?? ROLES.ENTRY;
 
   let isShowModal = false;
@@ -38,20 +36,18 @@ window.addEventListener("DOMContentLoaded", (event) => {
     ROLES[role] === "ENTRY" ? "user-shortcuts" : "checker-shortcuts"
   );
   renderHeader();
-  ROLES[role] === "ENTRY" ? renderUIEntry() : renderUIChecker();
+  ROLES[role] === "ENTRY"
+    ? renderUIEntry(currentIndex)
+    : renderUIChecker(currentIndex);
 
-  renderImgAndValue(currentIndex, role, dataAPI, dataAPI2);
+  renderImgAndValue(currentIndex, role, dataAPI3, dataAPI4);
   renderShortcut(shortcutLocalStorage, role);
   countdown(25, 59, header_dom.querySelector(".header__item.times"));
-  handleButtonEntry(1, role, dataAPI)
+  handleButtonEntry(1, role, dataAPI);
 
-  ROLES[role] === "ENTRY" ? handleButtonEntry(currentIndex, role, dataAPI) : handleButtonChecker(currentIndex, role, dataAPI, dataAPI2);
-
-  main__contain__right_dom.querySelector(
-    ".main__contain__right__input > input"
-  ).oninput = (e) => {
-    dataAPI[currentIndex].value = e.target.value;
-  };
+  ROLES[role] === "ENTRY"
+    ? handleButtonEntry(currentIndex, role, dataAPI3)
+    : handleButtonChecker(currentIndex, role, dataAPI3, dataAPI4);
 
   header_dom.querySelector(".header__item:last-child").onclick = () => {
     toggleClassList(modal_container_dom, "show");
@@ -62,7 +58,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
     toggleClassList(modal_container_dom, "show");
     isShowModal = false;
 
-    shortcutLocalStorage = getCustomSettingLocalStorage(ROLES[role] === "ENTRY" ? "user-shortcuts" : "checker-shortcuts");
+    shortcutLocalStorage = getCustomSettingLocalStorage(
+      ROLES[role] === "ENTRY" ? "user-shortcuts" : "checker-shortcuts"
+    );
   };
 
   document.addEventListener("keydown", (event) => {
@@ -73,83 +71,71 @@ window.addEventListener("DOMContentLoaded", (event) => {
     if (isControll || isAlt) event.preventDefault();
 
     const keyEvent = event.keyCode;
-    
+
     shortcutLocalStorage.forEach((shortcut) => {
       if (
         isControll &&
         shortcut.key.code[0] === 17 &&
         shortcut.key.code[1] === keyEvent
       ) {
-        currentIndex = switchCaseShortCut(shortcut.name, currentIndex, role, dataAPI, dataAPI2) ?? currentIndex;
+        currentIndex =
+          switchCaseShortCut(
+            shortcut.name,
+            currentIndex,
+            role,
+            dataAPI3,
+            dataAPI4
+          ) ?? currentIndex;
       } else if (
         isAlt &&
         shortcut.key.code[0] === 18 &&
         shortcut.key.code[1] === keyEvent
       ) {
-        currentIndex = switchCaseShortCut(shortcut.name, currentIndex, role, dataAPI, dataAPI2) ?? currentIndex;
+        currentIndex =
+          switchCaseShortCut(
+            shortcut.name,
+            currentIndex,
+            role,
+            dataAPI3,
+            dataAPI4
+          ) ?? currentIndex;
       }
     });
   });
 });
 
-export const handleButtonEntry = (currentIndex1, role, dataAPI) => {
-  if(role !== ROLES.ENTRY) return;
-  main__contain__right_dom.querySelector("#btn_next").onclick = () => {
-    currentIndex = checkConditionRenderImgAndValue(
-      "NEXT",
-      currentIndex,
-      1,
-      role,
-      dataAPI
-    );
+const handleButtonEntry = (currentIndex1, role, dataAPI) => {
+  if (role !== ROLES.ENTRY) return;
+
+  main__contain__right_dom.onclick = (e) => {
+    if (e.target.closest("#btn_next")) {
+      currentIndex = checkConditionRenderImgAndValue(
+        "NEXT",
+        currentIndex,
+        1,
+        role,
+        dataAPI
+      );
+    }
+
+    if (e.target.closest("#btn_pre")) {
+      currentIndex = checkConditionRenderImgAndValue(
+        "PREVIOUS",
+        currentIndex,
+        -1,
+        role,
+        dataAPI
+      );
+    }
   };
+};
 
-  main__contain__right_dom.querySelector("#btn_pre").onclick = () => {
-    currentIndex = checkConditionRenderImgAndValue(
-      "PREVIOUS",
-      currentIndex,
-      -1,
-      role,
-      dataAPI
-    );
-  };
+const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
+  if (role !== ROLES.CHECKER) return;
 
-  main__contain__right_dom.querySelector("#btn_submit").onclick = () => {
-    console.log("submit : ", dataAPI);
-  };
-
-  main__contain__right_dom.querySelector("#btn_exit").onclick = () => {
-    renderModalAnswer();
-  };
-}
-
-export const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
-  if(role !== ROLES.CHECKER) return;
-
-  main__contain__right_dom.querySelector("#btn_ck_entry1").onclick = () => {
-    currentIndex = checkConditionRenderImgAndValue(
-      "NEXT",
-      currentIndex,
-      1,
-      role,
-      dataAPI,
-      dataAPI2
-    );
-  };
-
-  main__contain__right_dom.querySelector("#btn_ck_entry2").onclick = () => {
-    currentIndex = checkConditionRenderImgAndValue(
-      "NEXT",
-      currentIndex,
-      1,
-      role,
-      dataAPI,
-      dataAPI2
-    );
-  };
-
-  main__contain__right_dom.querySelector("#btn_ck_both").onclick = () => {
-    currentIndex = checkConditionRenderImgAndValue(
+  main__contain__right_dom.onclick = () => {
+    if (e.target.closest("#btn_ck_entry1")) {
+      currentIndex = checkConditionRenderImgAndValue(
         "NEXT",
         currentIndex,
         1,
@@ -157,27 +143,48 @@ export const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
         dataAPI,
         dataAPI2
       );
-  };
+    }
 
-  main__contain__right_dom.querySelector("#btn_ck_exit").onclick = () => {
-    console.log("btn_ck_exit");
-  };
-
-  main__contain__right_dom.querySelector("#btn_ck_previous").onclick = () => {
-    currentIndex = checkConditionRenderImgAndValue(
-        "PREVIOUS",
+    if (e.target.closest("#btn_ck_entry2")) {
+      currentIndex = checkConditionRenderImgAndValue(
+        "NEXT",
         currentIndex,
-        -1,
+        1,
         role,
         dataAPI,
         dataAPI2
       );
-  };
+    }
 
-  main__contain__right_dom.querySelector("#btn_ck_submit").onclick = () => {
-    renderModalAnswer();
-  };
+    if (e.target.closest("#btn_ck_both")) {
+      currentIndex = checkConditionRenderImgAndValue(
+        "NEXT",
+        currentIndex,
+        1,
+        role,
+        dataAPI,
+        dataAPI2
+      );
+    }
 
+    if (e.target.closest("#btn_ck_exit")) {
+      console.log("btn_ck_exit");
+    }
+
+    if (e.target.closest("#btn_ck_previous")) {
+      currentIndex = checkConditionRenderImgAndValue(
+        "PREVIOUS",
+        currentIndex,
+        -1,
+        role,
+        dataAPI
+      );
+    }
+
+    if (e.target.closest("#btn_ck_submit")) {
+      renderModalAnswer();
+    }
+  };
 };
 
 /*
@@ -201,4 +208,5 @@ export const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
 - tạo components button ở file riêng , cần trả về handleButtonEntry current index chính xác
 - handle logic xử lý data checker choose. x
 - disable btn
+- chờ load ảnh xong mới cho nhập, khi đang load hiên loading
  */

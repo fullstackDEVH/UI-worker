@@ -5,6 +5,7 @@ import {
   dataEntry,
 } from "../constant/dataApi.js";
 import { ROLES } from "../constant/type.js";
+import { renderUIChecker, renderUIEntry } from "./renderWorker.js";
 import {
   header_dom,
   img_input_dom,
@@ -17,22 +18,54 @@ export const renderImgAndValue = (
   dataAPI1 = [],
   dataAPI2 = []
 ) => {
+  ROLES[role] === "ENTRY"
+    ? renderUIEntry(currentIndex)
+    : renderUIChecker(currentIndex);
+
   let inputEnter = main__contain__right_dom.querySelectorAll(
-    ".main__contain__right__input > input"
+    ".main__contain__right__input.entry_1 > input"
   );
+
+  let inputEnter2 = main__contain__right_dom.querySelectorAll(
+    ".main__contain__right__input.entry_2 > input"
+  );
+
+  console.log(inputEnter);
+  let formatNumber =
+    dataAPI1[currentIndex].numberInput ?? dataAPI2[currentIndex].numberInput;
+
+  /*
+    .main__contain__right__input.entry_1 > input
+    nếu là checker thì thêm: 
+    .main__contain__right__input.entry_2 > input
+
+  */
 
   header_dom.querySelector(
     ".header__item.pictures"
   ).textContent = `Remaining Pictures : ${currentIndex + 1}/${dataAPI1.length}`;
 
   img_input_dom.src = dataAPI1[currentIndex]?.urlImg;
-
   if (role === "ENTRY") {
-    inputEnter[0].value = dataAPI1[currentIndex]?.value;
+    for (var i = 0; i <= formatNumber - 1; i++) {
+      if (!dataAPI1[currentIndex]?.values[i]) {
+        inputEnter[i].value = "";
+        continue;
+      }
+      inputEnter[i].value = dataAPI1[currentIndex]?.values[i];
+    }
   } else if (ROLES[role] === "CHECKER") {
-    inputEnter[0].value = dataAPI1[currentIndex]?.value;
-    inputEnter[1].value = dataAPI2[currentIndex]?.value;
+    for (var i = 0; i <= formatNumber - 1; i++) {
+      inputEnter[i].value = dataAPI1[currentIndex]?.values[i]
+        ? dataAPI1[currentIndex]?.values[i]
+        : "";
+      inputEnter2[i].value = dataAPI2[currentIndex]?.values[i]
+        ? dataAPI2[currentIndex]?.values[i]
+        : "";
+    }
   }
+
+  console.log("render IMG AND VALUE  : ", dataAPI1);
 };
 
 export const checkConditionRenderImgAndValue = (
@@ -53,7 +86,7 @@ export const checkConditionRenderImgAndValue = (
   );
 
   if (role === ROLES.CHECKER) {
-    if (!inputEnter[0].value || !inputEnter[1].value) return;
+    // if (!inputEnter[0].value || !inputEnter[1].value) return;
 
     switch (btnName) {
       case "ENTRY1":
@@ -81,6 +114,7 @@ export const checkConditionRenderImgAndValue = (
         break;
     }
   } else if (role === ROLES.ENTRY) {
+    // phải lấy formatNumber enter dựa vào index
     if (!inputEnter[0].value) return;
 
     dataEntry[index] = {
@@ -102,3 +136,5 @@ export const checkConditionRenderImgAndValue = (
   renderImgAndValue(index, role, dataAPI1, dataAPI2);
   return index;
 };
+
+// gọi lại hàm handle btn
