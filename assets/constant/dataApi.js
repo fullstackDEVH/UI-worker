@@ -99,7 +99,7 @@ export const dataAPI3 = [
   {
     urlImg: "https://znews-photo.zingcdn.me/w660/Uploaded/mdf_eioxrd/2021_07_06/2.jpg",
     id: "0",
-    values: ["d", "e"],
+    values: ["d", ""],
     numberInput: 2,
   },
 ];

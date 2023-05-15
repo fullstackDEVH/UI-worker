@@ -1,6 +1,6 @@
-import { dataAPI } from "../constant/dataApi.js";
+import { dataAPI, dataChecker } from "../constant/dataApi.js";
+import { BTNS } from "../constant/type.js";
 import { addClassList, removeClassList } from "./helper/classList.js";
-import { decrement, increment } from "./index.js";
 import {
   img_input_dom,
   modal__custom__container_dom,
@@ -8,9 +8,27 @@ import {
   modal__custom_dom,
 } from "./variablesDom.js";
 
-export const renderModalAnswer = () => {
-  // passing parameters and handle logic to custom modal
-  increment()
+const switchContentBtn = (name) => {
+  switch (name) {
+    case BTNS.SUBMIT:
+      return `<div class="modal__custom__container__btns_btn" data-btn-name="submit">Submit</div>   `;
+    case BTNS.CANCEL:
+      return `<div class="modal__custom__container__btns_btn warning" data-btn-name="cancel">Cancel</div>`;
+    case BTNS.EXIT:
+      return `<div class="modal__custom__container__btns_btn warning" data-btn-name="exit">Exit</div>`;
+    case BTNS.SAVE:
+      return ``;
+
+    default:
+      return BTNS.CANCEL;
+  }
+};
+
+export const renderModalAnswer = (
+  message = "Do you want submit",
+  btnTypeOne = BTNS.CANCEL,
+  btnTypeTwo = BTNS.SUBMIT
+) => {
   addClassList(modal__custom_dom, "show");
 
   modal__custom__container_dom.innerHTML = `
@@ -18,10 +36,10 @@ export const renderModalAnswer = () => {
             <div class="modal__custom__container__icon">
                 <i class="fa-regular fa-circle-check"></i>
             </div>
-            <div class="modal__custom__container__desc">Do you want to exit?</div>
+            <div class="modal__custom__container__desc">${message}</div>
             <div class="modal__custom__container__btns">
-                <div class="modal__custom__container__btns_btn" data-btn-name="cancel">Cancel</div>
-                <div class="modal__custom__container__btns_btn warning" data-btn-name="exit">Exit</div>
+                ${switchContentBtn(btnTypeOne)}
+                ${switchContentBtn(btnTypeTwo)}
             </div>
         </div>
     `;
@@ -31,7 +49,6 @@ export const renderModalAnswer = () => {
 };
 
 export const renderModalZoomImg = (currentIndex) => {
-  decrement();
   handleClickModalOverlay();
   addClassList(modal__custom_dom, "show");
 
@@ -66,6 +83,10 @@ export const handleClickCancelModalCustom = () => {
 
           case "cancel":
             removeClassList(modal__custom_dom, "show");
+            return;
+
+          case "submit":
+            console.log(dataChecker);
             return;
 
           default:

@@ -1,4 +1,4 @@
-import { dataAPI, dataAPI2, dataAPI3, dataAPI4 } from "../constant/dataApi.js";
+import { dataAPI, dataAPI2, dataAPI3, dataAPI4, dataChecker, dataEntry } from "../constant/dataApi.js";
 import { ROLES } from "../constant/type.js";
 import { switchCaseShortCut } from "./helper/checkKeyCode.js";
 import { toggleClassList } from "./helper/classList.js";
@@ -23,18 +23,7 @@ import {
   main__contain__right_dom,
 } from "./variablesDom.js";
 
-let abc = 1;
 let currentIndex = 0;
-
-export const increment = () => {
-  // currentIndex++;
-  console.log(abc);
-};
-
-export const decrement = () => {
-  // currentIndex--;
-  console.log(abc);
-};
 
 window.addEventListener("DOMContentLoaded", (event) => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -145,7 +134,8 @@ const handleButtonEntry = (currentIndex1, role, dataAPI) => {
     }
 
     if (e.target.closest("#btn_submit")) {
-      console.log("submit");
+      console.log(dataEntry);
+
     }
   };
 };
@@ -156,7 +146,7 @@ const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
   main__contain__right_dom.onclick = (e) => {
     if (e.target.closest("#btn_ck_entry1")) {
       currentIndex = checkConditionRenderImgAndValue(
-        "NEXT",
+        "ENTRY1",
         currentIndex,
         1,
         role,
@@ -167,7 +157,7 @@ const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
 
     if (e.target.closest("#btn_ck_entry2")) {
       currentIndex = checkConditionRenderImgAndValue(
-        "NEXT",
+        "ENTRY2",
         currentIndex,
         1,
         role,
@@ -178,7 +168,7 @@ const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
 
     if (e.target.closest("#btn_ck_both")) {
       currentIndex = checkConditionRenderImgAndValue(
-        "NEXT",
+        "BOTH",
         currentIndex,
         1,
         role,
@@ -197,36 +187,9 @@ const handleButtonChecker = (currentIndex1, role, dataAPI, dataAPI2) => {
         currentIndex,
         -1,
         role,
-        dataAPI
+        dataAPI,
+        dataAPI2
       );
-    }
-
-    if (e.target.closest("#btn_ck_submit")) {
-      renderModalAnswer();
     }
   };
 };
-
-/*
-- lưu shortcut vào localStorage . x
-- lây shortcut từ localStorage. x
-- modal, popup. x
-- add error message for shortcut . x
-- shortcut zoom, có lẽ sử dụng modal để hiển thị hình ảnh to hơn. x
-
-- custom modal btn có thể tuỳ chỉnh 1 hoặc 2 nút và thay đổi dữ liệu trong modal. x
-- check input empty. x
-- chia ra component render button theo role. x
-- khi là màn hình checker mặc đinh chỉ readOnly, khi cần sửa thì nhấn nút edit
-
-
-
-* priority
-- tạo màn 2 hình cho checker có 1 img và 2 result của 2 ET. và custom btn controll . x
-- tạo localStorage riêng cho checkker.  x
-- sử dụng shortcut cho checker. x
-- tạo components button ở file riêng , cần trả về handleButtonEntry current index chính xác
-- handle logic xử lý data checker choose. x
-- disable btn
-- chờ load ảnh xong mới cho nhập, khi đang load hiên loading
- */

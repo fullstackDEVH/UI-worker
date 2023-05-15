@@ -3,13 +3,10 @@ import { isAlphaNumericKey } from "./helper/checkKeyCode.js";
 import { removeClassList } from "./helper/classList.js";
 import { addClassList, removeAllClassList } from "./helper/classList.js";
 import { handleKeyDown } from "./helper/event.js";
-import { handleKeyUp } from "./helper/event.js";
 import { setCustomSettingLocalStorage } from "./helper/localStorage.js";
 
 import { parent_modal_dom } from "./variablesDom.js";
 
-let ctrlKeyPressed = false;
-let altKeyPressed = false;
 
 const shortcutItem = (shortcut_name, shortcut_items_name = "") => {
   // Tạo phần tử div chứa tất cả các phần tử

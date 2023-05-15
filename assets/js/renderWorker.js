@@ -4,7 +4,6 @@ import { main__contain__right_dom } from "./variablesDom.js";
 export const renderUIChecker = (currentIndex) => {
   let inputs = "";
   let inputs2= "";
-  console.log(dataAPI3[currentIndex]);
   for (let i = 0; i <= dataAPI3[currentIndex].numberInput - 1; i++) {
     inputs += '<input type="text" name="input_1_' + i + '" />';
   };
@@ -41,9 +40,6 @@ export const renderUIChecker = (currentIndex) => {
             <div class="main__contain__right__btns__btn" id="btn_ck_previous" >
                 Previous
             </div>
-            <div class="main__contain__right__btns__btn" id="btn_ck_submit">
-                Submit
-            </div>
         </div>
     </div>
 
@@ -76,7 +72,6 @@ export const renderUIChecker = (currentIndex) => {
 
 export const renderUIEntry = (currentIndex) => {
   let inputs = "";
-  console.log(dataAPI3[currentIndex]);
   for (let i = 0; i <= dataAPI3[currentIndex].numberInput - 1; i++) {
     inputs += '<input type="text" name="input_' + i + '" />';
   };

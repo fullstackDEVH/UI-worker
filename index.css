@@ -169,6 +169,8 @@ input {
 .main__contain__right__btns__btn.disable {
   background: var(--disable-color);
   color: var(--text-color);
+  cursor : not-allowed;
+  pointer-events: none;
 }
 
 /* modal start */
